@@ -1,0 +1,1010 @@
+/*
+ * The dashboard page: All Usage (DashboardGrid, DashboardProviderSection, DashboardMetricRow,
+ * LevelIndicator), Priority (PriorityDashboardView), the hover details, and the share cards.
+ * Sizes are upstream's SwiftUI points as CSS pixels.
+ */
+
+/* Shared */
+
+.db-capsule {
+  border-radius: 999px;
+}
+
+.db-truncate {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* SwiftUI's .truncationMode(.middle): both halves give way, the first at its end, the second at its start. */
+.db-truncate-middle {
+  display: flex;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.db-truncate-head {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.db-truncate-tail {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  direction: rtl;
+  text-overflow: clip;
+}
+
+.db-truncate-tail > bdi {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* AccountNameConcealment: Privacy Mode blurs an account's own name in place. */
+.account-name {
+  display: flex;
+  min-width: 0;
+}
+
+[data-conceals-names='true'] .account-name.is-named {
+  filter: blur(4px);
+}
+
+/* A filled symbol whose inner strokes are cut out of it, as SF Symbols' `.fill` variants are drawn. */
+.db-symbol-knockout > :not(:first-child) {
+  stroke: var(--knockout, var(--panel));
+}
+
+/* All Usage */
+
+.db-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.db-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.db-header {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 12px;
+}
+
+.db-header-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.db-header-spacer {
+  flex: 1;
+  min-width: 8px;
+}
+
+.db-header-copy {
+  display: flex;
+  margin-right: 6px;
+}
+
+.db-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 12px 10px;
+}
+
+.db-account {
+  display: flex;
+  flex-direction: column;
+}
+
+.db-line-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.db-caption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 14px;
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.db-caption-name {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+  color: var(--text-secondary);
+}
+
+.db-caption-domain {
+  flex: 0 1 auto;
+  color: var(--text-tertiary);
+}
+
+.db-rename {
+  display: flex;
+  flex: 0 1 150px;
+  min-width: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.db-status-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  height: 14px;
+}
+
+.db-status-glyph.is-notice {
+  color: var(--orange);
+}
+
+.db-status-glyph.is-notice:disabled {
+  opacity: 1;
+}
+
+.db-plan {
+  flex: none;
+  height: 14px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background: var(--control-fill);
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+/* CopyFeedbackButton: a 28pt target around an 11pt glyph that takes 16pt of layout. */
+.db-copy-button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: -6px;
+  color: var(--text-secondary);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease-out;
+}
+
+.db-copy-button.is-revealed {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.db-copy-button.is-copied {
+  color: var(--blue);
+}
+
+.db-copy-button.is-copied .db-copy-glyph {
+  animation: db-copy-bounce var(--motion-spring);
+}
+
+@keyframes db-copy-bounce {
+  from {
+    transform: scale(0.6);
+  }
+}
+
+/* DashboardMetricRow */
+
+.db-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 22px;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.db-row.is-bar {
+  gap: 8px;
+}
+
+.db-row.is-faded {
+  opacity: 0.5;
+}
+
+.db-row.is-value {
+  gap: 8px;
+}
+
+.db-row-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.db-row.is-bar > .db-row-label {
+  flex: none;
+  width: 90px;
+}
+
+.db-row-spacer {
+  flex: 1;
+}
+
+.db-level-slot {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  height: 9px;
+}
+
+.db-row-value,
+.db-row-reset {
+  display: flex;
+  flex: none;
+  justify-content: flex-end;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+.db-row-value {
+  width: 52px;
+}
+
+.db-row-reset {
+  width: 48px;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.db-row-reset.is-clock {
+  width: 80px;
+}
+
+.db-row-value.is-warning,
+.db-figure-text.is-warning {
+  color: var(--orange-text);
+}
+
+.db-row-value.is-critical,
+.db-row-reset.is-critical,
+.db-figure-text.is-critical {
+  color: var(--red-text);
+}
+
+.db-figure {
+  flex: none;
+  white-space: nowrap;
+}
+
+.db-figure-trigger {
+  flex: none;
+}
+
+/* LevelIndicator: the system's linear progress bar, 6pt tall in the row's 9pt lane. */
+.db-level {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+}
+
+.db-level-track {
+  display: block;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--meter-track);
+  overflow: hidden;
+}
+
+.db-level-fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--blue);
+  transition: width var(--motion-mode-switch);
+}
+
+.db-level-fill.is-warning {
+  background: var(--orange);
+}
+
+.db-level-fill.is-critical {
+  background: var(--red);
+}
+
+/* A share image draws its bars as shapes, the full height of the lane. */
+.db-level.is-shapes > .db-level-track {
+  height: 100%;
+  border-radius: 2px;
+  overflow: visible;
+}
+
+.db-level.is-shapes .db-level-fill {
+  min-width: 4px;
+  border-radius: 2px;
+  transition: none;
+}
+
+.db-pace-mark {
+  position: absolute;
+  top: calc(50% - 6px);
+  width: 2px;
+  height: 12px;
+  border-radius: 1px;
+  background: var(--pace-mark);
+  pointer-events: none;
+}
+
+/* ReorderGeometry: the lifted preview, and the lifted row's surface. */
+.db-lift {
+  position: absolute;
+  z-index: 30;
+  transform: scale(1.025);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
+  pointer-events: none;
+}
+
+.db-lifted-row {
+  box-shadow: inset 0 0 0 0.5px var(--separator);
+}
+
+/* MotionAwareHoverPopover: a detail drawn over the panel, attached to its figure. */
+.db-popover {
+  position: absolute;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background: var(--popover);
+  box-shadow: var(--popover-shadow);
+  color: var(--text);
+  font-size: var(--font-body);
+  cursor: default;
+  opacity: 0;
+  --knockout: var(--popover);
+}
+
+.db-popover.is-placed {
+  opacity: 1;
+  animation: db-popover-in 140ms ease-out;
+}
+
+@keyframes db-popover-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+.db-popover.is-above {
+  transform-origin: 50% 100%;
+}
+
+.db-popover.is-below {
+  transform-origin: 50% 0;
+}
+
+.db-popover-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 10px;
+}
+
+.db-popover-arrow {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: var(--popover);
+  transform: rotate(45deg);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.db-popover.is-above > .db-popover-arrow {
+  bottom: -5px;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.db-popover.is-below > .db-popover-arrow {
+  top: -5px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+/* UsageBreakdownDetail */
+
+.ub-detail {
+  position: relative;
+  width: 288px;
+  padding: 14px;
+}
+
+.ub-copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--control-fill);
+}
+
+.ub-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ub-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ub-title {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.ub-headline {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 31px;
+}
+
+.ub-subfigures {
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.ub-loading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.ub-unavailable {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ub-unavailable-title {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ub-unavailable-reason {
+  font-size: 10px;
+}
+
+.ub-nothing {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ub-nothing-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0 12px;
+}
+
+.ub-nothing-mark {
+  display: grid;
+  place-items: center;
+  height: 56px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.ub-nothing-mark.is-animated {
+  animation: ub-nothing-pulse 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes ub-nothing-pulse {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+
+.ub-nothing-text {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.ub-token-mix {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ub-token-bar {
+  display: flex;
+  gap: 1px;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ub-token-bar > span {
+  flex-basis: 0;
+  min-width: 1px;
+}
+
+.ub-legends {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.ub-legend {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  gap: 2px;
+  font-size: 11px;
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+.ub-legend-row {
+  display: flex;
+  align-items: center;
+}
+
+.ub-legend-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+}
+
+.ub-models {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ub-models-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ub-model-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ub-model {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 18px;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.ub-model-number {
+  flex: none;
+  white-space: nowrap;
+}
+
+/* RateLimitResetsDetail */
+
+.rr-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 250px;
+  padding: 14px;
+}
+
+.rr-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  animation: rr-drop-in 250ms cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+@keyframes rr-drop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.rr-window {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rr-window-title {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.rr-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.rr-entry {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.rr-rail {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  width: 18px;
+}
+
+.rr-rail-line {
+  width: 1.5px;
+  background: var(--quaternary);
+}
+
+.rr-dot-slot {
+  position: absolute;
+  left: 0;
+}
+
+.rr-dot {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.rr-dot.is-warning {
+  background: var(--orange);
+}
+
+.rr-dot.is-critical {
+  background: var(--red);
+}
+
+.rr-node {
+  flex: 1;
+  min-width: 0;
+}
+
+.rr-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  font-size: 12px;
+}
+
+.rr-time {
+  min-width: 0;
+}
+
+.rr-spacer {
+  flex: 1;
+}
+
+.rr-use,
+.rr-countdown {
+  flex: none;
+  white-space: nowrap;
+  animation: rr-fade-in 120ms ease-out;
+}
+
+@keyframes rr-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.rr-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 4px 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--quaternary) 50%, transparent);
+  transform-origin: 50% 0;
+  animation: rr-drop-in 250ms cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.rr-confirm-title {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rr-confirm-detail {
+  font-size: 11px;
+}
+
+.rr-confirm-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.rr-confirm-buttons > * {
+  flex: 1;
+}
+
+.rr-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  text-align: center;
+}
+
+.rr-callout {
+  font-size: 12px;
+}
+
+/* Priority */
+
+.pr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.pr-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.pr-section-label {
+  padding: 0 4px 2px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.pr-notices-label {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.pr-notices-glyph {
+  margin-bottom: 2px;
+  color: var(--orange);
+}
+
+.pr-limit-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 4px;
+}
+
+.pr-spacer {
+  flex: 1;
+}
+
+.pr-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.pr-title,
+.pr-amount {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.pr-account,
+.pr-reset {
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.pr-callout {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.pr-trailing {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  white-space: nowrap;
+}
+
+.pr-compact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+  padding: 0 4px;
+}
+
+.pr-compact-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+}
+
+.pr-compact-titles {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.pr-compact-title {
+  flex: none;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.pr-notice-name {
+  flex: none;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.pr-note {
+  flex: none;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.pr-clear-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--green) 16%, transparent);
+  color: var(--green);
+}
+
+.pr-no-limits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 46px;
+}
+
+.pr-link {
+  color: var(--blue);
+  font-size: 12px;
+}
+
+.pr-link:hover {
+  text-decoration: underline;
+}
+
+.pr-skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pr-skeleton-lines.is-trailing {
+  align-items: flex-end;
+}
+
+.pr-gauge {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 32px;
+  height: 32px;
+}
+
+.pr-gauge > svg {
+  display: block;
+}
+
+.pr-gauge-fill {
+  stroke: var(--blue);
+}
+
+.pr-gauge-fill.is-warning {
+  stroke: var(--orange);
+}
+
+.pr-gauge-fill.is-critical {
+  stroke: var(--red);
+}
+
+/* ShareCardView: a card as a picture, on the panel's own opaque background. */
+.share-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: var(--font-body);
+  line-height: 1.25;
+}
+
+.share-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 16px;
+  background: var(--card);
+  box-shadow: inset 0 0.5px 0 var(--separator);
+}
+
+.share-card-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.share-card-tagline {
+  font-size: 11px;
+}

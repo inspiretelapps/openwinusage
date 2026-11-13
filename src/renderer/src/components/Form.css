@@ -1,0 +1,90 @@
+/* A grouped form, as macOS System Settings draws one. */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form[aria-disabled='true'] {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section-header {
+  padding: 0 10px 6px;
+  font-size: var(--font-headline);
+  font-weight: 600;
+}
+
+.form-section-footer {
+  padding: 6px 10px 0;
+  font-size: var(--font-subheadline);
+  color: var(--text-secondary);
+  user-select: text;
+}
+
+.form-section-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+/* A hairline between rows, set in from both edges like the system's. */
+.form-section-rows > * + * {
+  background-image: linear-gradient(var(--separator), var(--separator));
+  background-repeat: no-repeat;
+  background-position: 10px 0;
+  background-size: calc(100% - 20px) 1px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.form-row-label {
+  flex: none;
+  max-width: 70%;
+}
+
+.form-row-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-m);
+  text-align: right;
+}
+
+.form-row-content.is-alone {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.form-text-field {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  text-align: right;
+  user-select: text;
+  cursor: text;
+}
+
+.form-text-field::placeholder {
+  color: var(--text-tertiary);
+}
+
+.form-text-field:disabled {
+  opacity: 0.5;
+}

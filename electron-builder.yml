@@ -1,0 +1,47 @@
+# Windows installer for WinUsage. Rename the app here, in package.json and in src/core/support/AppInfo.ts.
+appId: app.winusage.desktop # AppInfo.appUserModelId: notifications need the installed build to carry it
+productName: WinUsage
+copyright: Copyright © 2026 Robin Ebers and the WinUsage contributors
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - out/**
+  - resources/**
+  - '!resources/bin/**'
+  - package.json
+
+# The command-line shim lives outside app.asar so cmd.exe can run it (CommandLineTool puts this folder on PATH).
+extraResources:
+  - from: resources/bin
+    to: bin
+
+asar: true
+
+win:
+  icon: build/icon.png
+  executableName: WinUsage
+  target:
+    - nsis
+  # Without a certificate the installer is unsigned and SmartScreen warns on first run.
+  # Building from a Mac: if rcedit needs Wine, set this to false (the exe then keeps Electron's icon and version info).
+  signAndEditExecutable: true
+
+nsis:
+  oneClick: true
+  perMachine: false
+  allowElevation: false
+  deleteAppDataOnUninstall: false
+  createDesktopShortcut: false
+  createStartMenuShortcut: true
+  shortcutName: WinUsage
+  artifactName: ${productName}-Setup-${version}-${arch}.${ext}
+
+# Updates: add the port's own GitHub repository to turn them on. Without a publish block
+# app-update.yml is not written and the updater stays off.
+# publish:
+#   provider: github
+#   owner: <owner>
+#   repo: <repo>

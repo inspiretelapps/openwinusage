@@ -1,0 +1,250 @@
+/*
+ * The panel's look, ported from upstream's Theme.swift and PanelMetrics.swift. Sizes are the SwiftUI
+ * point sizes used as CSS pixels. Colors were matched against the macOS screenshots.
+ *
+ * Use the tokens; do not hard-code a color or a spacing a token already names.
+ */
+:root {
+  --panel-width: 340px;
+  --panel-radius: 20px;
+  /* PanelMetrics.margin, sectionSpacing, controlRowPadding; DashboardContentView.barGap */
+  --margin: 12px;
+  --section-spacing: 14px;
+  --control-row-padding: 9px;
+  --bar-gap: 7px;
+  /* Theme.Spacing */
+  --space-xs: 4px;
+  --space-s: 6px;
+  --space-m: 8px;
+  --space-l: 10px;
+  --space-xl: 12px;
+  --space-xxl: 14px;
+  --card-radius: 12px;
+
+  --font: 'Segoe UI Variable Text', 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  /* SwiftUI text styles on macOS */
+  --font-body: 13px;
+  --font-headline: 13px; /* semibold */
+  --font-subheadline: 11px;
+  --font-caption: 10px;
+
+  /* Motion.navigation, Motion.modeSwitch, Motion.spring */
+  --motion-navigation: 250ms ease-in-out;
+  --motion-mode-switch: 180ms ease-in-out;
+  --motion-spring: 420ms cubic-bezier(0.3, 1.25, 0.4, 1);
+
+  color-scheme: light;
+  --panel: #ffffff;
+  --text: rgba(0, 0, 0, 0.85);
+  --text-secondary: rgba(0, 0, 0, 0.52);
+  --text-tertiary: rgba(0, 0, 0, 0.28);
+  --separator: rgba(0, 0, 0, 0.1);
+  /* Theme.cardFill, hairline, meterTrack, skeleton, controlFill, segmentThumb */
+  --card: rgba(0, 0, 0, 0.032);
+  --hairline: rgba(0, 0, 0, 0.05);
+  --meter-track: rgba(0, 0, 0, 0.09);
+  --skeleton: rgba(0, 0, 0, 0.075);
+  --control-fill: rgba(0, 0, 0, 0.06);
+  --control-fill-hover: rgba(0, 0, 0, 0.1);
+  --segment-thumb: #ffffff;
+  --quaternary: rgba(0, 0, 0, 0.08);
+  /* Theme.severityColor */
+  --blue: #2b82ff;
+  --orange: #ff8d28;
+  --red: #ff383c;
+  --green: #34c759;
+  /* Theme.severityTextColor: darkened enough to read as small text on a light panel */
+  --orange-text: #b35e00;
+  --red-text: #d60014;
+  --pace-mark: rgba(0, 0, 0, 0.47);
+  --material: rgba(246, 246, 246, 0.86);
+  --popover: #ffffff;
+  --popover-shadow: 0 8px 28px rgba(0, 0, 0, 0.18), 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+  --panel-shadow: 0 10px 30px rgba(0, 0, 0, 0.22), 0 0 0 0.5px rgba(0, 0, 0, 0.14);
+  --field: #ffffff;
+  --field-border: rgba(0, 0, 0, 0.14);
+  --focus-ring: rgba(43, 130, 255, 0.45);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --panel: #1e1e1e;
+  --text: rgba(255, 255, 255, 0.88);
+  --text-secondary: rgba(255, 255, 255, 0.58);
+  --text-tertiary: rgba(255, 255, 255, 0.28);
+  --separator: rgba(255, 255, 255, 0.1);
+  --card: rgba(255, 255, 255, 0.03);
+  --hairline: rgba(255, 255, 255, 0.06);
+  --meter-track: rgba(255, 255, 255, 0.12);
+  --skeleton: rgba(255, 255, 255, 0.086);
+  --control-fill: rgba(255, 255, 255, 0.1);
+  --control-fill-hover: rgba(255, 255, 255, 0.16);
+  --segment-thumb: rgba(255, 255, 255, 0.18);
+  --quaternary: rgba(255, 255, 255, 0.09);
+  --blue: #3a8dff;
+  --orange: #ff9230;
+  --red: #ff4245;
+  --green: #30d158;
+  --orange-text: #ff9230;
+  --red-text: #ff4245;
+  --pace-mark: rgba(255, 255, 255, 0.5);
+  --material: rgba(40, 40, 40, 0.86);
+  --popover: #2a2a2a;
+  --popover-shadow: 0 8px 28px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(255, 255, 255, 0.14);
+  --panel-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(255, 255, 255, 0.16);
+  --field: rgba(255, 255, 255, 0.07);
+  --field-border: rgba(255, 255, 255, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--font-body);
+  line-height: 1.25;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: default;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Digits that keep their width as they change: SwiftUI's monospacedDigit(). */
+.mono-digits {
+  font-variant-numeric: tabular-nums;
+}
+
+.secondary {
+  color: var(--text-secondary);
+}
+
+.tertiary {
+  color: var(--text-tertiary);
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Theme.cardSurface(): the quaternary fill with a hairline border. */
+.card {
+  background: var(--card);
+  border-radius: var(--card-radius);
+  box-shadow: inset 0 0 0 0.5px var(--hairline);
+}
+
+/* A button with no chrome: SwiftUI's .buttonStyle(.plain). */
+/* Zero specificity, so any component class on the same element overrides the reset. */
+:where(.plain-button) {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  text-align: inherit;
+  cursor: default;
+}
+
+.plain-button:focus-visible,
+.focusable:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.plain-button:disabled {
+  opacity: 0.5;
+}
+
+/* View.hoverHighlight(): a quaternary chip that fades in around interactive text without moving it. */
+.hover-highlight {
+  position: relative;
+}
+
+.hover-highlight::before {
+  content: '';
+  position: absolute;
+  inset: -2px -6px;
+  border-radius: 6px;
+  background: var(--quaternary);
+  opacity: 0;
+  transition: opacity 120ms ease-out;
+  pointer-events: none;
+}
+
+.hover-highlight:hover::before,
+.hover-highlight.is-lit::before {
+  opacity: 1;
+}
+
+.hover-highlight > * {
+  position: relative;
+}
+
+/* View.skeleton(): quiet grey shapes with a slow shimmer, which Reduce Motion stops. */
+.skeleton {
+  color: var(--skeleton);
+  -webkit-mask-image: linear-gradient(90deg, #000 35%, rgba(0, 0, 0, 0.4) 50%, #000 65%);
+  -webkit-mask-size: 300% 100%;
+  animation: skeleton-shimmer 1.6s linear infinite;
+}
+
+.skeleton-shape {
+  background: currentColor;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    -webkit-mask-position: 100% 0;
+  }
+  to {
+    -webkit-mask-position: 0 0;
+  }
+}
+
+:root[data-reduce-motion='true'] .skeleton {
+  animation: none;
+  -webkit-mask-image: none;
+}
+
+:root[data-reduce-motion='true'] *,
+:root[data-reduce-motion='true'] *::before,
+:root[data-reduce-motion='true'] *::after {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}
+
+/* Scroll areas never show a scrollbar, like the macOS panel. */
+.scroll-hidden {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}

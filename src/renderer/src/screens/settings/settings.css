@@ -1,0 +1,165 @@
+/*
+ * Settings (upstream's SettingsScreen.swift). The grouped cards are `components/Form.tsx`; this file is
+ * the page around them and the controls only Settings has.
+ */
+
+/* The Form's content margins: PanelMetrics.margin at the sides and bottom, barGap under the tab bar. */
+.settings-form {
+  padding: var(--bar-gap) var(--margin) var(--margin);
+}
+
+/* titled(): HStack(spacing: 4) of the title and an 11pt secondary info.circle. */
+.settings-titled {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.settings-info {
+  display: inline-grid;
+  place-items: center;
+  color: var(--text-secondary);
+}
+
+/* limitLabel(): HStack(spacing: 8), the mark in an 8pt-wide frame. */
+.settings-limit-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-m);
+  min-width: 0;
+}
+
+.settings-limit-mark {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+  width: 8px;
+  overflow: visible;
+}
+
+.settings-severity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* SettingsNote: 11pt in Theme.notice, wrapping. */
+.settings-note {
+  font-size: 11px;
+  color: var(--orange);
+  user-select: text;
+  overflow-wrap: anywhere;
+}
+
+.settings-note + .settings-note {
+  margin-top: var(--space-xs);
+}
+
+/* The Notifications footer: a quiet line with a link, where upstream has its permission notice. */
+.settings-footnote {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.settings-link {
+  display: inline;
+  color: var(--blue);
+}
+
+.settings-link:hover {
+  text-decoration: underline;
+}
+
+/* What the updater is doing, beside Check for Updates…. */
+.settings-update-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-s);
+  min-width: 0;
+  font-size: 11px;
+}
+
+/* PriorityIconsPreview: the tray icon with sample limits, beside the tooltip that lists them. */
+.priority-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  padding: 4px 0;
+}
+
+.priority-preview-icon {
+  flex: none;
+}
+
+/* A Windows tooltip: small text in a bordered box. */
+.priority-preview-tooltip {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--separator);
+  border-radius: 4px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 11px;
+  line-height: 15px;
+  white-space: nowrap;
+}
+
+/* ShortcutRecorder: the field KeyboardShortcuts.Recorder draws, 130pt wide with centered text. */
+.shortcut-recorder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 130px;
+  height: 24px;
+  padding: 0 20px;
+  border-radius: 6px;
+  background: var(--field);
+  box-shadow: inset 0 0 0 0.5px var(--field-border);
+  outline: none;
+  font-size: var(--font-body);
+}
+
+.shortcut-recorder:focus-visible,
+.shortcut-recorder.is-recording {
+  box-shadow: inset 0 0 0 0.5px var(--field-border), 0 0 0 3px var(--focus-ring);
+}
+
+.shortcut-recorder.is-empty .shortcut-recorder-text,
+.shortcut-recorder.is-recording .shortcut-recorder-text {
+  color: var(--text-secondary);
+}
+
+.shortcut-recorder.is-disabled {
+  opacity: 0.5;
+}
+
+.shortcut-recorder-text {
+  min-width: 0;
+}
+
+.shortcut-recorder-clear {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  color: var(--panel);
+}
+
+.shortcut-recorder-clear:hover {
+  background: var(--text);
+}

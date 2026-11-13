@@ -1,0 +1,419 @@
+/* AccountsView: the list, an account's page, or a hub's page, under the Accounts top bar. */
+.accounts-view {
+  padding: var(--bar-gap) var(--margin) 0;
+  overflow-x: clip;
+}
+
+.accounts-levels {
+  position: relative;
+}
+
+.accounts-level.is-leaving {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+/* Motion.navigation: a page moves in from the trailing edge, the list from the leading one. */
+.accounts-level.is-entering.from-trailing {
+  animation: accounts-from-trailing var(--motion-navigation) both;
+}
+
+.accounts-level.is-entering.from-leading {
+  animation: accounts-from-leading var(--motion-navigation) both;
+}
+
+.accounts-level.is-leaving.to-trailing {
+  animation: accounts-from-trailing var(--motion-navigation) both reverse;
+}
+
+.accounts-level.is-leaving.to-leading {
+  animation: accounts-from-leading var(--motion-navigation) both reverse;
+}
+
+@keyframes accounts-from-trailing {
+  from {
+    transform: translateX(var(--panel-width));
+  }
+}
+
+@keyframes accounts-from-leading {
+  from {
+    transform: translateX(calc(-1 * var(--panel-width)));
+  }
+}
+
+.accounts-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-spacing);
+}
+
+/* ContentUnavailableView */
+.content-unavailable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 36px 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* AccountListRow, CLIProxyHubRow */
+.account-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: var(--control-row-padding) 12px;
+}
+
+.account-row-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 22px;
+  white-space: nowrap;
+}
+
+.account-row-name {
+  flex: none;
+}
+
+.account-row-main > .truncate {
+  min-width: 0;
+}
+
+.hub-row-host {
+  flex: 0 1 auto;
+  min-width: 40px;
+}
+
+.hub-row-count {
+  flex: 0 1000 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-chevron {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  color: var(--text-tertiary);
+}
+
+/* ReorderGrip */
+.reorder-grip {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 22px;
+  color: var(--text-tertiary);
+  touch-action: none;
+}
+
+.reorder-rows {
+  position: relative;
+}
+
+/* ReorderLiftPreview over liftedRowSurface() */
+.reorder-lift {
+  position: fixed;
+  z-index: 900;
+  pointer-events: none;
+  transform: scale(1.025);
+  box-shadow: inset 0 0 0 0.5px var(--separator), 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+/* A row of a card that is one action: Sign In Again…, Replace API Key…, Remove Account… */
+.card-action {
+  display: block;
+  width: 100%;
+  padding: var(--control-row-padding) 12px;
+  text-align: left;
+}
+
+.card-action.is-tinted {
+  color: var(--blue);
+}
+
+.card-action.is-destructive {
+  color: var(--red);
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--control-row-padding) 12px;
+}
+
+.info-row > .truncate {
+  min-width: 0;
+}
+
+/* ProblemCard */
+.problem-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 12px;
+  font-size: 13px;
+  user-select: text;
+}
+
+/* AccountMetricRow */
+.metric-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: var(--control-row-padding) 12px;
+}
+
+.metric-row-title {
+  flex: 1;
+  min-width: 0;
+  /* Spacer(minLength: 8) between the stack's own spacings */
+  padding-right: 18px;
+}
+
+.metric-row-pin {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 22px;
+  color: var(--text-tertiary);
+}
+
+.metric-row-pin.is-pinned {
+  color: var(--text-secondary);
+}
+
+/* ReplaceKeyRow */
+.replace-key-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+}
+
+.replace-key-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* HubDetailView */
+.hub-accounts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hub-unsupported {
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+/* ErrorText */
+.error-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--red);
+  text-align: left;
+  user-select: text;
+}
+
+.error-text.is-centered {
+  justify-content: center;
+  text-align: center;
+}
+
+/* InlineRenameField: drawn 4 by 1 outside its box, so the text stays where the name was. */
+.inline-rename-field {
+  width: calc(100% + 8px);
+  min-width: 0;
+  margin: -1px -4px;
+  padding: 1px 4px;
+  border: 0;
+  border-radius: 5px;
+  outline: none;
+  background-color: var(--panel);
+  background-image: linear-gradient(var(--field), var(--field));
+  box-shadow: inset 0 0 0 1px var(--blue);
+  user-select: text;
+  cursor: text;
+}
+
+.inline-rename-field::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* AccountTitle */
+.account-title {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  padding: 2px 6px;
+  font-weight: inherit;
+}
+
+.account-title-chip,
+.account-title-name {
+  display: block;
+  min-width: 0;
+}
+
+.account-title-field {
+  width: 100%;
+}
+
+/* AddAccountSheet */
+.add-account-sheet {
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 20px 20px 14px;
+}
+
+.sheet-header-title {
+  font-size: var(--font-headline);
+  font-weight: 600;
+}
+
+.sheet-header-message {
+  font-size: var(--font-subheadline);
+  color: var(--text-secondary);
+}
+
+.sheet-header-link {
+  margin-top: 2px;
+  font-size: var(--font-subheadline);
+}
+
+.sheet-link {
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.sheet-buttons {
+  display: flex;
+  gap: 8px;
+  padding: 20px 20px 0;
+}
+
+.sheet-buttons > .push-button {
+  flex: 1;
+  min-width: 0;
+}
+
+.sheet-cancel-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.sheet-footnote {
+  font-size: 10px;
+}
+
+.sheet-footnote-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.sheet-footnote-stack .sheet-link {
+  font-size: inherit;
+}
+
+/* ChoiceList: an inset list on a card, with the system's selection. */
+.choice-list {
+  flex: none;
+  margin: 0 20px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--card);
+  outline: none;
+  overflow: hidden;
+}
+
+.choice-row {
+  --choice-icon: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.choice-chevron {
+  color: var(--text-tertiary);
+}
+
+.choice-row.is-selected {
+  background: var(--control-fill-hover);
+}
+
+.choice-list.is-focused .choice-row.is-selected {
+  --choice-icon: #fff;
+  background: var(--blue);
+  color: #fff;
+}
+
+.choice-list.is-focused .choice-row.is-selected .choice-chevron {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* DeviceCodeBox */
+.device-code-box {
+  margin: 0 20px;
+  padding: 12px 0;
+  border-radius: 10px;
+  background: var(--card);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  user-select: text;
+  cursor: text;
+}
+
+.sign-in-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px 20px;
+  font-size: 12px;
+}
+
+/* CloseButton: xmark.circle.fill in the sheet's top-right corner. */
+.sheet-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  padding: 14px;
+  color: var(--text-secondary);
+}

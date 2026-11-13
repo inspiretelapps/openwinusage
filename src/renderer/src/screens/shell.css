@@ -1,0 +1,129 @@
+/* The window is larger than the panel by the room its shadow needs. The app adds the same margin. */
+.window {
+  position: absolute;
+  inset: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.window[data-anchor='top'] {
+  justify-content: flex-start;
+}
+
+.panel {
+  position: relative;
+  width: var(--panel-width);
+  height: 100%;
+  border-radius: var(--panel-radius);
+  background: var(--panel);
+  box-shadow: var(--panel-shadow);
+  overflow: hidden;
+}
+
+.pager {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+
+.nav-bar {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: 36px;
+  padding: 0 var(--margin);
+}
+
+.nav-bar-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 28px;
+}
+
+.nav-bar-title {
+  position: absolute;
+  left: calc(var(--margin) + 40px);
+  right: calc(var(--margin) + 40px);
+  bottom: 0;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-headline);
+  font-weight: 600;
+}
+
+.back-button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--blue);
+}
+
+.settings-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 5px 0 4px;
+  border-radius: 7px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  transition: background var(--motion-mode-switch), color var(--motion-mode-switch);
+}
+
+.settings-tab.is-selected {
+  color: var(--blue);
+  background: var(--control-fill);
+}
+
+.footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 26px;
+  box-sizing: content-box;
+  padding: var(--bar-gap) var(--margin) var(--margin);
+}
+
+.footer-identity {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-caption);
+  color: var(--text-secondary);
+}
+
+.footer-share-pill {
+  position: absolute;
+  top: -34px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.dashboard-content {
+  padding: var(--bar-gap) var(--margin);
+}
+
+.empty-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 16px 26px;
+  text-align: center;
+}
+
+.update-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: var(--section-spacing);
+}

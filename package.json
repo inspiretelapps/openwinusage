@@ -1,0 +1,41 @@
+{
+  "name": "winusage",
+  "productName": "WinUsage",
+  "version": "0.1.0",
+  "description": "Track your AI coding subscriptions from the Windows system tray. An unofficial Windows port of OpenUsage.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "dev:demo": "electron-vite dev -- --demo",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "dist:win": "electron-vite build && electron-builder --win --x64",
+    "dist:win:arm64": "electron-vite build && electron-builder --win --arm64",
+    "dist:dir": "electron-vite build && electron-builder --win --x64 --dir"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.11"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0",
+    "electron-vite": "^6.0.0",
+    "html-to-image": "^1.11.13",
+    "lucide-react": "^1.70.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.7",
+    "vitest": "^5.1.0"
+  }
+}
