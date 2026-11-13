@@ -65,7 +65,7 @@ npm run dist:win    # Windows x64 installer in dist/
 `win.signAndEditExecutable: false` in `electron-builder.yml`, or build on Windows. CI builds the
 installer on `windows-latest` (`.github/workflows/build.yml`).
 
-To check the screens without Windows, `npx electron-vite build && npx electron out/main/index.js
+To check the screens without Windows, `npx electron-vite build && npx electron .
 --demo=4242 --capture=<folder>` saves a picture of each screen, in light and dark, to `<folder>`.
 
 ## Project layout

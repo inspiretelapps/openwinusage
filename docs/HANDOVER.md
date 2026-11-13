@@ -18,30 +18,23 @@ upstream.
 
 ## State today
 
-| Area | Where | State |
-|---|---|---|
-| Models, formatting, pace, priority ranking | `src/core/models`, `src/core/support` | Done, tested |
-| 12 providers | `src/core/providers/<name>` | Done, tested |
-| Sign-ins, hub client, proxy config | `src/core/services` | Done, tested |
-| Stores, refresh loop, add-account flow | `src/core/stores`, `src/core/app` | Done; store tests only partly ported |
-| Sample-data mode | `src/core/development` | Written, never run |
-| CLI | `src/cli` | Written, never run |
-| Electron main process | `src/main` | Written, never run; 1 type error |
-| Panel shell, theme, shared components | `src/renderer/src/{screens,components,state,styles}` | Written, never run |
-| Settings screen | `src/renderer/src/screens/settings` | Written, type-checks, never run or reviewed |
-| Dashboard screens (both tabs, details, share) | `src/renderer/src/screens/dashboard` | An agent was still writing these; check the folder |
-| Accounts screens, Add Account sheet, `components/Form.tsx`, `ConfirmDialog.tsx` | `src/renderer/src/screens/accounts` | Written, type-checks, never run or reviewed |
-| Tray icon drawing | - | Not started |
-| App icon, installer, README, CI | - | Not started |
+Updated 2026-11-13, after the second session. Committed on branch `windows-port`.
 
-`npm test`: 447 pass, 5 skipped, 24 todo. `npm run typecheck`: 9 errors, all from the missing screen
-files plus the one in `src/main/index.ts`.
+| Area | State |
+|---|---|
+| `src/core` (models, 12 providers, sign-ins, stores, refresh loop) | Done, tested |
+| `src/main` | Runs on macOS in demo mode; never run on Windows |
+| Panel: dashboard (both tabs, details, share), accounts, Add Account, settings | Written, renders on sample data, first visual pass done |
+| Tray icon (`src/renderer/src/tray`) | Done: badge with the most urgent value, tooltip with the list; tested |
+| Packaging (`electron-builder.yml`, `resources/`, `build/icon.png`, CI) | Config done; no installer built yet |
+| README, LICENSE | Done |
 
-The app has never been launched. Nothing has been tried on Windows; the development machine is a Mac.
+`npm test`: 620 pass, 5 skipped, 24 todo. `npm run typecheck`: clean. The panel bundle has no Node modules
+(the Add Account sheet's plain data moved to `src/core/models/AddAccountChoice.ts` for that).
 
-Three background agents were building the dashboard, accounts, and settings screens when this was
-written. Check those three folders before starting: if files appeared, review them rather than
-rewriting.
+Steps 1–5 and 9 below are done, apart from the remaining `it.todo` cases. Step 6 has had one pass: the
+captures match upstream's layout. What is left is step 6's finer comparison, step 7's installer build, and
+step 8, which needs a Windows machine.
 
 ## Work left, in order
 
@@ -129,7 +122,7 @@ Windows has no menu-bar text strip. Design decided, not built:
 ### 6. First launch and visual check (on the Mac)
 
 1. `npm run dev:demo` runs the app on sample data. Expect first-run bugs in `src/main` and the shell.
-2. `npx electron-vite build && npx electron out/main/index.js --demo=4242 --capture=<folder>` saves
+2. `npx electron-vite build && npx electron . --demo=4242 --capture=<folder>` saves
    PNGs of every screen in light and dark (`src/main/capture.ts`). Compare them with the upstream
    screenshots and fix differences.
 3. Things most likely to need work: panel sizing and the slide between screens (`DashboardView.tsx`),

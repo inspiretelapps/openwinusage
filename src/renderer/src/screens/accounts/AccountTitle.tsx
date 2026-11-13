@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { Provider } from '@core/models/Provider'
 import { Tooltip } from '../../components/Tooltip'
 import { useRenaming } from '../../state/context'
-import { ConcealedName } from './AccountNameConcealment'
+import { ConcealedName } from '../AccountNameConcealment'
 import { InlineRenameField } from './InlineRenameField'
 import './accounts.css'
 

@@ -2,7 +2,7 @@ import type { PointerEvent as ReactPointerEvent, ReactNode } from 'react'
 import { Provider } from '@core/models/Provider'
 import { Icon } from '../../components/Icon'
 import { ProviderIcon } from '../../components/ProviderIcon'
-import { ConcealedName } from './AccountNameConcealment'
+import { ConcealedName } from '../AccountNameConcealment'
 import './accounts.css'
 
 /** The handle a row is dragged by. Without `onPointerDown` it is the inert one a lifted row shows. */

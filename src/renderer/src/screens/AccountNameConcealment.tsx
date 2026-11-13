@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { Provider } from '@core/models/Provider'
 
 /**
@@ -8,6 +8,16 @@ import { Provider } from '@core/models/Provider'
  */
 export function concealingAccountName(provider: Provider): string {
   return Provider.labelBesideName(provider) !== undefined ? 'account-name is-named' : 'account-name'
+}
+
+/** An account's name, blurred in place while names are concealed. Wrap exactly the text that is the account's own name. */
+export function ConcealedName(props: { provider: Provider; children: ReactNode; className?: string; style?: CSSProperties }): ReactNode {
+  const className = concealingAccountName(props.provider)
+  return (
+    <span className={props.className ? `${props.className} ${className}` : className} style={props.style}>
+      {props.children}
+    </span>
+  )
 }
 
 /**

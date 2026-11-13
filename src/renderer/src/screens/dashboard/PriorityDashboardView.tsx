@@ -13,7 +13,7 @@ import { Button } from '../../components/Controls'
 import { Icon } from '../../components/Icon'
 import { ProviderIcon } from '../../components/ProviderIcon'
 import { useNow, usePopover, useStores } from '../../state/context'
-import { TruncatedText, concealingAccountName } from './AccountNameConcealment'
+import { TruncatedText, concealingAccountName } from '../AccountNameConcealment'
 import { DashboardMenus, showDashboardMenu, type DashboardCommand } from './DashboardMenus'
 import './dashboard.css'
 

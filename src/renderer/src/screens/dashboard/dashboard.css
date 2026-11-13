@@ -51,10 +51,6 @@
   min-width: 0;
 }
 
-[data-conceals-names='true'] .account-name.is-named {
-  filter: blur(4px);
-}
-
 /* A filled symbol whose inner strokes are cut out of it, as SF Symbols' `.fill` variants are drawn. */
 .db-symbol-knockout > :not(:first-child) {
   stroke: var(--knockout, var(--panel));

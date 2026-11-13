@@ -127,3 +127,8 @@
   padding: 12px;
   margin-bottom: var(--section-spacing);
 }
+
+/* Upstream's concealingAccountName(of:): an account's own name blurs while the panel or a copied card conceals names. */
+[data-conceals-names='true'] .account-name.is-named {
+  filter: blur(4px);
+}
