@@ -3,6 +3,7 @@
   "productName": "WinUsage",
   "version": "0.1.0",
   "description": "Track your AI coding subscriptions from the Windows system tray. An unofficial Windows port of OpenUsage.",
+  "author": "WinUsage contributors",
   "license": "MIT",
   "private": true,
   "type": "module",

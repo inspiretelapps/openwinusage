@@ -20,6 +20,11 @@ extraResources:
 
 asar: true
 
+# The 1.2.1 NSIS bundle (makensis 3.12) has a native Apple Silicon binary; the default 0.0.0 one is
+# Intel-only and fails on a Mac without Rosetta ("spawn Unknown system error -86").
+toolsets:
+  nsis: '1.2.1'
+
 win:
   icon: build/icon.png
   executableName: WinUsage

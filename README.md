@@ -61,7 +61,7 @@ npm run dev:demo    # run it on sample data, with no accounts
 npm run dist:win    # Windows x64 installer in dist/
 ```
 
-`dist:win` can run on macOS. If code-signing tools need Wine there, set
+`dist:win` runs on macOS, Apple Silicon included (see `toolsets` in `electron-builder.yml`). If code-signing tools need Wine there, set
 `win.signAndEditExecutable: false` in `electron-builder.yml`, or build on Windows. CI builds the
 installer on `windows-latest` (`.github/workflows/build.yml`).
 
