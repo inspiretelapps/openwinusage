@@ -192,6 +192,6 @@ Nothing below can be checked on a Mac:
 - **Name.** OpenUsage's trademark policy requires forks to use another name and logo. The working name
   is "WinUsage" (`src/core/support/AppInfo.ts`, `package.json`). The project folder is `openwinusage`;
   confirm the final name before publishing.
-- **Repository** for releases and issue reports (`AppInfo.issuesURL` is empty, which hides the menu
-  item).
+- **Repository**: decided, https://github.com/inspiretelapps/openwinusage (public). Releases there feed
+  the updater (`publish` in `electron-builder.yml`) and "Report an Issue…" opens its issues.
 - **Code signing.** An unsigned installer triggers SmartScreen.

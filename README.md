@@ -11,7 +11,9 @@ running out, and its tooltip lists the rest.
 > logo are trademarks of Robin Ebers and are not used here; see upstream's
 > [trademark policy](https://github.com/robinebers/openusage/blob/main/TRADEMARK.md).
 
-**Status: early.** The app has not yet been released or tested on Windows.
+**Status: early preview.** Download the installer from
+[Releases](https://github.com/inspiretelapps/openwinusage/releases). It has not yet been tested on
+Windows, and it is unsigned, so SmartScreen warns on first run (More info → Run anyway).
 
 ## Supported providers
 

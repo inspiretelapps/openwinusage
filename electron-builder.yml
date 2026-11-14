@@ -44,9 +44,10 @@ nsis:
   shortcutName: WinUsage
   artifactName: ${productName}-Setup-${version}-${arch}.${ext}
 
-# Updates: add the port's own GitHub repository to turn them on. Without a publish block
-# app-update.yml is not written and the updater stays off.
-# publish:
-#   provider: github
-#   owner: <owner>
-#   repo: <repo>
+# Updates come from this repository's GitHub releases: the build writes app-update.yml into the app
+# and latest.yml next to the installer, and both files go on each release.
+publish:
+  provider: github
+  owner: inspiretelapps
+  repo: openwinusage
+  releaseType: release

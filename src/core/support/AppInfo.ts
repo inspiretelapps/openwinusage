@@ -12,8 +12,8 @@ export const AppInfo = {
   appUserModelId: 'app.winusage.desktop',
   upstreamName: 'OpenUsage',
   upstreamURL: 'https://github.com/robinebers/openusage',
-  /** Where issues for this port are reported; empty hides the menu item. Set it to the port's own repository. */
-  issuesURL: '',
+  /** Where issues for this port are reported; empty hides the menu item. */
+  issuesURL: 'https://github.com/inspiretelapps/openwinusage/issues/new',
   /** Set by the app at launch from its package version; "dev" in tests and unpackaged runs. */
   version: 'dev'
 }
